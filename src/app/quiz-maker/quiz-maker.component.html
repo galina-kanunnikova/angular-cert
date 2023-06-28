@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-11">
+
+    <app-autocomplete [placeholder]="'Select category'" (selectedOptionEvent)="categoryOptionSelected($event)" [listData]="categories$ | category">
+    </app-autocomplete>
+
+    <ng-container *ngIf="categorySelectedName === 'entertainment' || categorySelectedName === 'science'">
+      <app-autocomplete [placeholder]="'Select subcategory'" (selectedOptionEvent)="subcategoryOptionSelected($event)" [listData]="categories$ | subcategory:categorySelectedName">
+      </app-autocomplete>
+    </ng-container>
+    <!--
+    <select #category id="categorySelect" [(ngModel)]="categorySelected" (ngModelChange)="checkCategory($event)">
+      <option>Select category</option>
+      <option  [value]="category.id"  *ngFor="let category of (categories$ | category) | async">
+        {{category.name}}
+      </option>
+    </select>
+    <ng-container *ngIf="categorySelectedName === 'entertainment' || categorySelectedName === 'science'">
+      <select #subcategory  [(ngModel)]="subcategorySelected" id="subcategorySelect">
+        <option>Select subcategory</option>
+        <option [value]="subcategory.id" *ngFor="let subcategory of (categories$ | subcategory:categorySelectedName) | async">
+          {{subcategory.name}}
+        </option>
+      </select>
+    </ng-container>
+    -->
+    <select #difficulty id="difficultySelect">
+      <option>Select difficulty</option>
+      <option>Easy</option>
+      <option>Medium</option>
+      <option>Hard</option>
+    </select>
+    <button class="primary" id="createBtn" (click)="createQuiz(difficulty.value)">Create</button>
+  </div>
+
+</div>
+<div class="row">
+   <app-quiz [questions]="questions$ | async" ></app-quiz>
+</div>
